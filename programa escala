@@ -1,0 +1,24 @@
+import pandas as pd
+import random
+
+# Lista de funcionários
+funcionarios = [f'Funcionario {i+1}' for i in range(70)]
+
+# Inicialização da estrutura de dados
+data = {'Dia da Semana': ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']}
+for funcionario in funcionarios:
+    data[funcionario] = ['Trabalho'] * 7
+
+# Conversão para DataFrame
+df = pd.DataFrame(data)
+
+# Distribuição das folgas
+for i in range(7):  # 7 dias da semana
+    folgas = random.sample(funcionarios, 20)
+    for folga in folgas:
+        df.at[i, folga] = 'Folga'
+
+# Exportação para um arquivo Excel
+df.to_excel('escala_de_folgas.xlsx', index=False)
+
+print("Planilha de folgas criada com sucesso!")
